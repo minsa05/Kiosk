@@ -9,10 +9,10 @@ IntelliJ IDEA
 JDK 17
 
 # 주요기능
-1.Main -> 시작을 하는 클래스
-2.MenuItem -> 세부 메뉴 속성을 가지는 클래스
-3.Kiosk -> 프로그램 순서,흐름,연산하는 클래스
-4.Menu: -> MenuItem을 통제하는 클래스
+## 1.Main -> 시작을 하는 클래스
+## 2.MenuItem -> 세부 메뉴 속성을 가지는 클래스
+## 3.Kiosk -> 프로그램 순서,흐름,연산하는 클래스
+## 4.Menu: -> MenuItem을 통제하는 클래스
 
 
 
