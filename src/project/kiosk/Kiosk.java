@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Kiosk {
-    Scanner sc = new Scanner(System.in);
-    List<MenuItem> burgersList = new ArrayList<>();
-    List<MenuItem> drinkList = new ArrayList<>();
-    List<MenuItem> dessertsList = new ArrayList<>();
-    List<MenuItem> cartList = new ArrayList<>();
+    private Scanner sc = new Scanner(System.in);
+    private List<MenuItem> burgersList = new ArrayList<>();
+    private List<MenuItem> drinkList = new ArrayList<>();
+    private List<MenuItem> dessertsList = new ArrayList<>();
+    private List<MenuItem> cartList = new ArrayList<>();
 
     public Kiosk() {
         // Burger 메뉴 항목 (menuList)
@@ -31,141 +31,120 @@ public class Kiosk {
 
     // Burger 메뉴 출력
     public void startBurger() {
-        System.out.println("[ BURGERS MENU ]");
-        for (int i = 0; i < burgersList.size(); i++) {
-            System.out.println((i + 1) + ". " + burgersList.get(i).getName() + " | W " + burgersList.get(i).getPrice() + " | " + burgersList.get(i).getEx());
-        }
-
-        System.out.println("0. 뒤로가기");
-        System.out.print("메뉴를 선택하세요: ");
-        int order = sc.nextInt();
-
-        if (order >= 1 && order <= burgersList.size()) {
-            System.out.println("선택한 메뉴: " + burgersList.get(order - 1).getName() + " | W " + burgersList.get(order - 1).getPrice() + " | " + burgersList.get(order - 1).getEx());
-            System.out.println("위 메뉴를 장바구니에 추가하시겠습니까? (1. 확인  2. 취소)");
-            int cart = sc.nextInt();
-
-            if (cart == 1) {
-                cartList.add(new MenuItem(burgersList.get(order - 1).getName(), burgersList.get(order - 1).getPrice(), burgersList.get(order - 1).getEx()));
-                System.out.println(burgersList.get(order - 1).getName() + " 이 장바구니에 추가되었습니다.");
-                orderProcess();
-            } else if (cart == 2) {
-                System.out.println("취소되었습니다. 메인 메뉴로 돌아갑니다.");
-                new Menu();
-            } else {
-                System.out.println("잘못된 입력입니다. 메인 메뉴로 돌아갑니다.");
-                new Menu();
+        while (true) {
+            System.out.println("\n[ BURGERS MENU ]");
+            for (int i = 0; i < burgersList.size(); i++) {
+                MenuItem item = burgersList.get(i);
+                System.out.println((i + 1) + ". " + item.getName() + " | W " + item.getPrice() + " | " + item.getEx());
             }
-        } else if (order == 0) {
-            new Menu();
-        } else {
-            System.out.println("잘못된 입력입니다. 메인 메뉴로 돌아갑니다.");
-            new Menu();
+            System.out.println("0. 뒤로가기");
+            System.out.print("메뉴를 선택하세요: ");
+            int order = sc.nextInt();
+
+            if (order == 0) {
+                return;  // 메인 메뉴로 돌아감
+            } else if (order >= 1 && order <= burgersList.size()) {
+                System.out.println("선택한 메뉴: " + burgersList.get(order - 1).getName() + " | W " + burgersList.get(order - 1).getPrice() + " | " + burgersList.get(order - 1).getEx());
+                System.out.println("위 메뉴를 장바구니에 추가하시겠습니까? (1. 확인  2. 취소)");
+                int cart = sc.nextInt();
+                if (cart == 1) {
+                    cartList.add(burgersList.get(order - 1));
+                    System.out.println(burgersList.get(order - 1).getName() + " 이(가) 장바구니에 추가되었습니다.");
+                    orderProcess();
+                } else {
+                    System.out.println("취소되었습니다.");
+                }
+            } else {
+                System.out.println("잘못된 입력입니다.");
+            }
         }
     }
 
-    // Drinks 메뉴 출력
+    // Drinks 메뉴
     public void startDrinks() {
-        System.out.println("[ Drinks MENU ]");
-        for (int i = 0; i < drinkList.size(); i++) {
-            System.out.println((i + 1) + ". " + drinkList.get(i).getName() + " | W " + drinkList.get(i).getPrice() + " | " + drinkList.get(i).getEx());
-        }
-        System.out.println("0. 뒤로가기");
-        System.out.print("메뉴를 선택하세요: ");
-        int order = sc.nextInt();
-
-        if (order >= 1 && order <= drinkList.size()) {
-            System.out.println("선택한 메뉴: " + drinkList.get(order- 1).getName() + " | W " + drinkList.get(order- 1).getPrice() + " | " + drinkList.get(order- 1).getEx());
-            System.out.println("위 메뉴를 장바구니에 추가하시겠습니까? (1. 확인  2. 취소)");
-            int cart = sc.nextInt();
-
-            if (cart == 1) {
-                cartList.add(new MenuItem(drinkList.get(order- 1).getName(), drinkList.get(order- 1).getPrice(), drinkList.get(order- 1).getEx()));
-                System.out.println(drinkList.get(order- 1).getName() + " 이(가) 장바구니에 추가되었습니다.");
-                orderProcess();
-            } else if (cart == 2) {
-                System.out.println("취소되었습니다. 메인 메뉴로 돌아갑니다.");
-                new Menu();
-            } else {
-                System.out.println("잘못된 입력입니다. 메인 메뉴로 돌아갑니다.");
-                new Menu();
+        while (true) {
+            System.out.println("\n[ DRINKS MENU ]");
+            for (int i = 0; i < drinkList.size(); i++) {
+                MenuItem item = drinkList.get(i);
+                System.out.println((i + 1) + ". " + item.getName() + " | W " + item.getPrice() + " | " + item.getEx());
             }
-        } else if (order == 0) {
-            new Menu();
-        } else {
-            System.out.println("잘못된 입력입니다. 메인 메뉴로 돌아갑니다.");
-            new Menu();
+            System.out.println("0. 뒤로가기");
+            System.out.print("메뉴를 선택하세요: ");
+            int order = sc.nextInt();
+
+            if (order == 0) {
+                return;
+            } else if (order >= 1 && order <= drinkList.size()) {
+                System.out.println("선택한 메뉴: " + drinkList.get(order - 1).getName() + " | W " + drinkList.get(order - 1).getPrice() + " | " + drinkList.get(order - 1).getEx());
+                System.out.println("위 메뉴를 장바구니에 추가하시겠습니까? (1. 확인  2. 취소)");
+                int cart = sc.nextInt();
+                if (cart == 1) {
+                    cartList.add(drinkList.get(order - 1));
+                    System.out.println(drinkList.get(order - 1).getName() + " 이(가) 장바구니에 추가되었습니다.");
+                    orderProcess();
+                } else {
+                    System.out.println("취소되었습니다.");
+                }
+            } else {
+                System.out.println("잘못된 입력입니다.");
+            }
         }
     }
 
-    // Desserts 메뉴 출력
+    // Desserts 메뉴
     public void startDesserts() {
-        System.out.println("[ Desserts MENU ]");
-        for (int i = 0; i < dessertsList.size(); i++) {
-            System.out.println((i + 1) + ". " + dessertsList.get(i).getName() + " | W " + dessertsList.get(i).getPrice() + " | " + dessertsList.get(i).getEx());
-        }
-        System.out.println("0. 뒤로가기");
-        System.out.print("메뉴를 선택하세요: ");
-        int order = sc.nextInt();
-
-        if (order >= 1 && order <= dessertsList.size()) {
-            System.out.println("선택한 메뉴: " + dessertsList.get(order - 1).getName() + " | W " + dessertsList.get(order - 1).getPrice() + " | " + dessertsList.get(order - 1).getEx());
-            System.out.println("위 메뉴를 장바구니에 추가하시겠습니까? (1. 확인  2. 취소)");
-            int cart = sc.nextInt();
-
-            if (cart == 1) {
-                cartList.add(new MenuItem(dessertsList.get(order - 1).getName(), dessertsList.get(order - 1).getPrice(), dessertsList.get(order - 1).getEx()));
-                System.out.println(dessertsList.get(order - 1).getName() + " 이(가) 장바구니에 추가되었습니다.");
-                orderProcess();
-            } else if (cart == 2) {
-                System.out.println("취소되었습니다. 메인 메뉴로 돌아갑니다.");
-                new Menu();
-            } else {
-                System.out.println("잘못된 입력입니다. 메인 메뉴로 돌아갑니다.");
-                new Menu();
+        while (true) {
+            System.out.println("[ DESSERTS MENU ]");
+            for (int i = 0; i < dessertsList.size(); i++) {
+                MenuItem item = dessertsList.get(i);
+                System.out.println((i + 1) + ". " + item.getName() + " | W " + item.getPrice() + " | " + item.getEx());
             }
-        } else if (order == 0) {
-            new Menu();
-        } else {
-            System.out.println("잘못된 입력입니다. 메인 메뉴로 돌아갑니다.");
-            new Menu();
+            System.out.println("0. 뒤로가기");
+            System.out.print("메뉴를 선택하세요: ");
+            int order = sc.nextInt();
+
+            if (order == 0) {
+                return;
+            } else if (order >= 1 && order <= dessertsList.size()) {
+                System.out.println("선택한 메뉴: " + dessertsList.get(order - 1).getName() + " | W " + dessertsList.get(order - 1).getPrice() + " | " + dessertsList.get(order - 1).getEx());
+                System.out.println("위 메뉴를 장바구니에 추가하시겠습니까? (1. 확인  2. 취소)");
+                int cart = sc.nextInt();
+                if (cart == 1) {
+                    cartList.add(dessertsList.get(order - 1));
+                    System.out.println(dessertsList.get(order - 1).getName() + " 이(가) 장바구니에 추가되었습니다.");
+                    orderProcess();
+                } else {
+                    System.out.println("취소되었습니다.");
+                }
+            } else {
+                System.out.println("잘못된 입력입니다.");
+            }
         }
     }
 
-    // 장바구니
+    // 최종 주문 확인 및 결제 처리: 메인 메뉴에서 4번 옵션으로 호출
     private void orderProcess() {
+        if (cartList.isEmpty()) {
+            System.out.println("장바구니가 비어있습니다!");
+            return;
+        }
+        double total = 0;
         System.out.println("[ ORDER MENU ]");
-        System.out.println("1. Orders    | 장바구니를 확인 후 주문합니다.");
-        System.out.println("2. Cancel    | 진행중인 주문을 취소합니다.");
-        int orderMenu = sc.nextInt();
+        for (MenuItem item : cartList) {
+            System.out.println(item.getName() + " | W " + item.getPrice() + " | " + item.getEx());
+            total += item.getPrice();
+        }
+        System.out.println("[ Total ]");
+        System.out.println("W " + total);
 
-        if (orderMenu == 1) {
-            double total = 0;
-            System.out.println("[ Orders ]");
-            for (MenuItem item : cartList) {
-                System.out.println(item.getName() + " | W " + item.getPrice() + " | " + item.getEx());
-                total += item.getPrice();
-            }
-            System.out.println("[ Total ]");
-            System.out.println("W " + total);
-            System.out.println("1. 주문    2. 메뉴판");
-            int lastorder = sc.nextInt();
-            if (lastorder == 1) {
-                System.out.println("주문이 완료되었습니다. 금액은 W " + total + " 입니다.");
-                cartList.clear();
-            } else if (lastorder == 2) {
-                new Menu();
-            } else {
-                System.out.println("잘못된 입력입니다. 메인 메뉴로 돌아갑니다.");
-                new Menu();
-            }
-        } else if (orderMenu == 2) {
-            System.out.println("주문이 취소되었습니다.");
-            cartList.clear();
-            new Menu();
+        System.out.println("1. 주문 확정    2. 계속 쇼핑");
+        int lastOrder = sc.nextInt();
+        if (lastOrder == 1) {
+            System.out.println("주문이 완료되었습니다. 금액은 W " + total + " 입니다.");
+            System.exit(0);
         } else {
-            System.out.println("잘못된 입력입니다. 메인 메뉴로 돌아갑니다.");
-            new Menu();
+            System.out.println("계속 쇼핑합니다.");
         }
     }
+
 }

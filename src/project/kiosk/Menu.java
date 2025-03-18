@@ -5,8 +5,22 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
-    List<MenuItem> menuItem = new ArrayList<MenuItem>();
-    Scanner sc = new Scanner(System.in);
+    private List<MenuItem> menuItem = new ArrayList<MenuItem>();
+    private Scanner sc = new Scanner(System.in);
+
+
+    public void resetMenu() {
+
+        menuItem.add(new
+
+                MenuItem("Burger", 0, "버거 모음"));
+        menuItem.add(new
+
+                MenuItem("Drinks", 0, "음료 모음"));
+        menuItem.add(new
+
+                MenuItem("Desserts", 0, "디저트 모음"));
+    }
 
     public Menu() {
         // 메인 메뉴 항목 추가
